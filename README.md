@@ -17,7 +17,7 @@ go run main.go
 ### Generate a masternode configuration string
 
 ```http request
-POST http://localhost:8000/generatemasternodestring
+POST http://localhost:8000/api/generatemasternodestring
 ```
 #### Request Body
 ```json
@@ -40,7 +40,7 @@ POST http://localhost:8000/generatemasternodestring
 ### Generate a masternode.txt file
 
 ```http request
-POST http://localhost:8000/generateconfigfile
+POST http://localhost:8000/api/generateconfigfile
 ```
 #### Request Response
 ```json
@@ -55,7 +55,7 @@ The **masternode.txt** will be generated/stored in the project directory.
 ### Add a masternode to the configuration file
 
 ```http request
-POST http://localhost:8000/addmasternode
+POST http://localhost:8000/api/addmasternode
 ```
 #### Request Response
 ```json
