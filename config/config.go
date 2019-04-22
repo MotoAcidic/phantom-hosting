@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/icrowley/fake"
 	uuid "github.com/satori/go.uuid"
+	"os"
 	"time"
 )
 
@@ -25,4 +26,13 @@ func GenerateNodeDetails(m MasternodeString) (mnString string) {
 	mnString = fmt.Sprintf("%s %s%d %s %s %d %d", m.Alias, m.IPv6, m.Port, m.Genkey, m.TransactionID, m.TransactionIndex, m.EpochTime)
 
 	return mnString
+}
+
+func GenerateConfigurationFile(path string) {
+	file, err := os.Create(path)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	defer file.Close()
 }

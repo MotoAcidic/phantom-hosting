@@ -12,13 +12,18 @@ import (
 
 func Start() {
 	r := mux.NewRouter()
-	r.HandleFunc("/generateconfig", GenerateConfig).Methods("POST")
+	r.HandleFunc("/generateconfigfile", GenerateConfigFile).Methods("GET")
+	r.HandleFunc("/generatemasternodenstring", GenerateMasternodeString).Methods("POST")
 
 	fmt.Println("Running on http://localhost:8000")
 	log.Fatal(http.ListenAndServe(":8000", r))
 }
 
-func GenerateConfig(w http.ResponseWriter, r *http.Request) {
+func GenerateConfigFile(w http.ResponseWriter, r *http.Request) {
+	config.GenerateConfigurationFile("masternode.txt")
+}
+
+func GenerateMasternodeString(w http.ResponseWriter, r *http.Request) {
 	var mnConfig config.MasternodeString
 
 	err := json.NewDecoder(r.Body).Decode(&mnConfig)
