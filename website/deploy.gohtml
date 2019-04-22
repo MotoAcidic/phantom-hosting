@@ -10,7 +10,7 @@
         <div class="form-row">
             <div class="form-group col-md-4">
                 <label for="coin">Currency</label>
-                <select name="coin" id="coin" class="form-control" v-model="form.coin" required>
+                <select name="coin" id="coin" class="form-control" v-model="coin" required>
                     <option disabled selected value>Select A Currency</option>
                     <option value="xfe">Feirm</option>
                 </select>
@@ -18,21 +18,25 @@
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
-                <label for="genkey">Your ${form.coin | uppercase } Masternode Genkey</label>
+                <label for="genkey">Your ${coin | uppercase } Masternode Genkey</label>
                 <input type="text" class="form-control" id="genkey" name="genkey" placeholder="" autocomplete="off" v-model="form.genkey" required>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="port">${coin | uppercase } Port</label>
+                <input type="text" class="form-control" id="port" name="port" placeholder="" autocomplete="off" v-model="form.port" required>
             </div>
         </div>
 
         <div class="form-row">
 
             <div class="form-group col-md-5">
-                <label for="amount">Your ${form.coin | uppercase } Masternode Collateral TxID</label>
+                <label for="txid">Your ${coin | uppercase } Masternode Collateral TxID</label>
                 <input type="text" class="form-control" id="txid" name="txid" placeholder="" autocomplete="off" v-model="form.txid" required>
             </div>
 
             <div class="form-group col-md-2">
-                <label for="txindex">TX Index</label>
-                <select name="txindex" id="txindex" class="form-control" v-model="form.txindex" required>
+                <label for="tx_index">TX Index</label>
+                <select name="tx_index" id="tx_index" class="form-control" v-model="form.tx_index" required>
                     <option disabled selected value>Select</option>
                     <option value="0">0</option>
                     <option value="1">1</option>
@@ -56,14 +60,12 @@
         el: '#initiate-form',
         data() {
             return {
+                coin: "",
                 form: {
-                    coin: "",
                     genkey: "",
-                    txindex: "",
-                },
-                broadcastForm: {
-                    asset: "",
-                    rawTransaction: "",
+                    txid: "",
+                    tx_index: "",
+                    port: ""
                 },
                 success: false,
                 broadcastSuccess: false,
@@ -74,13 +76,10 @@
         },
         methods: {
             processForm: function () {
-                vueutil.post(this, '/api/getmasternodestring', this.form, (response) => {
+                vueutil.post(this, '/api/generatemasternodestring', (this.form), (response) => {
                     if (response.data.success == true) {
                         this.success = true
-                        this.result = response.data.result
-                        this.form.contractTransaction = response.data.result["contract_transaction_hex"]
-                        this.broadcastForm.asset = this.form.coin
-                        this.broadcastForm.rawTransaction = this.form.contractTransaction
+                        this.result = response.data.data
                     } else {
                         this.error = response.data.error
                     }
