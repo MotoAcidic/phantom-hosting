@@ -39,7 +39,30 @@ POST http://localhost:8000/generatemasternodestring
 ```http request
 POST http://localhost:8000/generateconfigfile
 ```
+#### Request Response
+```json
+{
+    "success": true,
+    "data": "Configuration file created",
+    "error": ""
+}
+```
 The **masternode.txt** will be generated/stored in the project directory.
+
+### Add a masternode to the configuration file
+
+```http request
+POST http://localhost:8000/addmasternode
+```
+#### Request Response
+```json
+{
+    "success": true,
+    "data": "Masternode added successfully to configuration file",
+    "error": ""
+}
+```
+The most recent masternode string created, which is stored in memory, will be appended to the **masternodes.txt** configuration file.
 
 ## Credits
 * BreakCrypto - [Phantom Node Daemon](https://github.com/breakcrypto/phantom)
