@@ -66,12 +66,6 @@ func GenerateMasternodeString(w http.ResponseWriter, r *http.Request) {
 		log.Println(err.Error())
 	}
 
-	if mnConfig.TransactionID == "" {
-		fmt.Println("A TxID is needed")
-		utils.Respond(w, nil, err)
-		return
-	}
-
 	mnString = config.GenerateNodeDetails(mnConfig)
 
 	utils.Respond(w, mnString, nil)
