@@ -22,12 +22,15 @@ func init() {
 func Start() {
 	r := mux.NewRouter()
 	r.HandleFunc("/", HomeHandler).Methods("GET")
+	r.HandleFunc("/deploy", DeployMasternodeSiteHandler).Methods("GET")
 
 	api := r.PathPrefix("/api").Subrouter()
 	api.HandleFunc("/generateconfigfile", GenerateConfigFile).Methods("POST")
 	api.HandleFunc("/generatemasternodestring", GenerateMasternodeString).Methods("POST")
 	api.HandleFunc("/addmasternode", AddMasternode).Methods("POST")
 	http.Handle("/", r)
+
+	r.PathPrefix("/www/").Handler(http.StripPrefix("/www/", http.FileServer(http.Dir("www"))))
 
 	fmt.Println("Running on http://localhost:8000")
 	log.Fatal(http.ListenAndServe(":8000", r))
@@ -36,6 +39,13 @@ func Start() {
 // Frontend Handlers
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	err := tpl.ExecuteTemplate(w, "index.gohtml", nil)
+	if err != nil {
+		fmt.Println("error template")
+	}
+}
+
+func DeployMasternodeSiteHandler(w http.ResponseWriter, r *http.Request) {
+	err := tpl.ExecuteTemplate(w, "deploy.gohtml", nil)
 	if err != nil {
 		fmt.Println("error template")
 	}

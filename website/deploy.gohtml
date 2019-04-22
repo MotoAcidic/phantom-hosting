@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+{{template "head"}}
+<body>
+{{template "menu"}}
+
+<div class="container" id="initiate-form">
+    <form @submit.prevent="processForm">
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="coin">Currency</label>
+                <select name="coin" id="coin" class="form-control" v-model="form.coin" required>
+                    <option disabled selected value>Select A Currency</option>
+                    <option value="xfe">Feirm</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="genkey">Your ${form.coin | uppercase } Masternode Genkey</label>
+                <input type="text" class="form-control" id="genkey" name="genkey" placeholder="" autocomplete="off" v-model="form.genkey" required>
+            </div>
+        </div>
+
+        <div class="form-row">
+
+            <div class="form-group col-md-5">
+                <label for="amount">Your ${form.coin | uppercase } Masternode Collateral TxID</label>
+                <input type="text" class="form-control" id="txid" name="txid" placeholder="" autocomplete="off" v-model="form.txid" required>
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="txindex">TX Index</label>
+                <select name="txindex" id="txindex" class="form-control" v-model="form.txindex" required>
+                    <option disabled selected value>Select</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-secondary">Deploy!</button>
+    </form>
+
+
+</div>
+
+
+<script>
+    Vue.filter('uppercase', function (value) {
+        return value.toUpperCase()
+    });
+
+    const app = new Vue({
+        delimiters: ['${', '}'],
+        el: '#initiate-form',
+        data() {
+            return {
+                form: {
+                    coin: "",
+                    genkey: "",
+                    txindex: "",
+                },
+                broadcastForm: {
+                    asset: "",
+                    rawTransaction: "",
+                },
+                success: false,
+                broadcastSuccess: false,
+                result: [],
+                transaction: [],
+                error: [],
+            };
+        },
+        methods: {
+            processForm: function () {
+                vueutil.post(this, '/api/getmasternodestring', this.form, (response) => {
+                    if (response.data.success == true) {
+                        this.success = true
+                        this.result = response.data.result
+                        this.form.contractTransaction = response.data.result["contract_transaction_hex"]
+                        this.broadcastForm.asset = this.form.coin
+                        this.broadcastForm.rawTransaction = this.form.contractTransaction
+                    } else {
+                        this.error = response.data.error
+                    }
+                });
+                this.clear()
+            },
+            clear: function () {
+                this.result = []
+                this.error = []
+                this.transaction = []
+            },
+        }
+    });
+
+</script>
+
+</body>
+</html>
