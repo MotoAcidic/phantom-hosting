@@ -36,3 +36,16 @@ func GenerateConfigurationFile(path string) {
 
 	defer file.Close()
 }
+
+func AddMasternodeToConfigFile(path string, strMasternode string) {
+	file, err := os.OpenFile(path, os.O_APPEND | os.O_WRONLY, 0600)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	defer file.Close()
+
+	if _, err := file.Write([]byte(strMasternode + "\n")); err != nil {
+		fmt.Println(err)
+	}
+}

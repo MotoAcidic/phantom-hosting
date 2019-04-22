@@ -10,10 +10,13 @@ import (
 	"net/http"
 )
 
+var mnString string
+
 func Start() {
 	r := mux.NewRouter()
 	r.HandleFunc("/generateconfigfile", GenerateConfigFile).Methods("POST")
 	r.HandleFunc("/generatemasternodestring", GenerateMasternodeString).Methods("POST")
+	r.HandleFunc("/addmasternode", AddMasternode).Methods("POST")
 
 	fmt.Println("Running on http://localhost:8000")
 	log.Fatal(http.ListenAndServe(":8000", r))
@@ -21,6 +24,7 @@ func Start() {
 
 func GenerateConfigFile(w http.ResponseWriter, r *http.Request) {
 	config.GenerateConfigurationFile("masternode.txt")
+	utils.Respond(w, "Configuration file created", nil)
 }
 
 func GenerateMasternodeString(w http.ResponseWriter, r *http.Request) {
@@ -38,7 +42,12 @@ func GenerateMasternodeString(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	mnString := config.GenerateNodeDetails(mnConfig)
+	mnString = config.GenerateNodeDetails(mnConfig)
 
 	utils.Respond(w, mnString, nil)
+}
+
+func AddMasternode(w http.ResponseWriter, r *http.Request) {
+	config.AddMasternodeToConfigFile("masternode.txt", mnString)
+	utils.Respond(w, "Masternode added successfully to configuration file", nil)
 }
