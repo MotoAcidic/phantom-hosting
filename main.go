@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"gitlab.com/jackkdev/phantom-hosting-api/config"
+	"gitlab.com/jackkdev/phantom-hosting-api/api"
 	"os"
 )
 
@@ -20,5 +20,5 @@ func createConfig(path string) {
 }
 
 func main() {
-	fmt.Println(config.GenerateNodeDetails(config.MasternodeString{}))
+	api.Start()
 }
