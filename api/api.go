@@ -12,7 +12,7 @@ import (
 
 func Start() {
 	r := mux.NewRouter()
-	r.HandleFunc("/generateconfigfile", GenerateConfigFile).Methods("GET")
+	r.HandleFunc("/generateconfigfile", GenerateConfigFile).Methods("POST")
 	r.HandleFunc("/generatemasternodenstring", GenerateMasternodeString).Methods("POST")
 
 	fmt.Println("Running on http://localhost:8000")
