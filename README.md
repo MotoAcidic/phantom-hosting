@@ -14,7 +14,7 @@ go run main.go
 ### Generate a masternode configuration string
 
 ```http request
-POST http://localhost:8000/generatemasternodenstring
+POST http://localhost:8000/generatemasternodestring
 ```
 #### Request Body
 ```json
