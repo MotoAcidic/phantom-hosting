@@ -8,12 +8,19 @@ import (
 	"gitlab.com/jackkdev/phantom-hosting-api/utils"
 	"log"
 	"net/http"
+	"html/template"
 )
 
 var mnString string
+var tpl *template.Template
+
+func init() {
+	tpl = template.Must(template.ParseGlob("website/*"))
+}
 
 func Start() {
 	r := mux.NewRouter()
+	r.HandleFunc("/", HomeHandler).Methods("GET")
 
 	api := r.PathPrefix("/api").Subrouter()
 	api.HandleFunc("/generateconfigfile", GenerateConfigFile).Methods("POST")
@@ -21,8 +28,18 @@ func Start() {
 	api.HandleFunc("/addmasternode", AddMasternode).Methods("POST")
 	http.Handle("/", r)
 
+	r.PathPrefix("/www/").Handler(http.StripPrefix("/www/", http.FileServer(http.Dir("www"))))
+
 	fmt.Println("Running on http://localhost:8000")
 	log.Fatal(http.ListenAndServe(":8000", r))
+}
+
+// Frontend Handlers
+func HomeHandler(w http.ResponseWriter, r *http.Request) {
+	err := tpl.ExecuteTemplate(w, "index.gohtml", nil)
+	if err != nil {
+		fmt.Println("error template")
+	}
 }
 
 // API Handlers
