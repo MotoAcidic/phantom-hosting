@@ -3,7 +3,7 @@
 {{template "head"}}
 <body>
 {{template "menu"}}
-    <div class="container">
+    <div id="app" class="container">
         <form @submit.prevent="processForm" id="initiate-form">
             <h1>Masternode Deployment</h1>
             <div class="form-row">
@@ -29,6 +29,9 @@
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Deploy My Masternode!</button>
+            <br>
+            <br>
+            <code v-show="success == true">${result}</code>
         </form>
         {{template "footer"}}
     </div>
@@ -36,7 +39,7 @@
 <script>
     const app = new Vue({
         delimiters: ['${', '}'],
-        el: '#initiate-form',
+        el: '#app',
         data: {
             form: {
                 genkey: "",
