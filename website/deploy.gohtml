@@ -4,28 +4,28 @@
 <body>
 {{template "menu"}}
     <div class="container">
-        <form>
+        <form @submit.prevent="processForm" id="initiate-form">
             <h1>Masternode Deployment</h1>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="genkey">Masternode Genkey</label>
-                    <input type="text" class="form-control" id="genkey" placeholder="Genkey" required>
+                    <input type="text" class="form-control" id="genkey" placeholder="Genkey" v-model="form.genkey" required>
                 </div>
             </div>
             <div class="form-group form-row">
                 <div class="col-md-6">
                     <label for="txid">Collateral Transaction ID</label>
-                    <input type="text" class="form-control" id="txid" placeholder="Transaction ID" required>
+                    <input type="text" class="form-control" id="txid" placeholder="Transaction ID" v-model="form.txid" required>
                 </div>
                 <div class="col-md-2">
                     <label for="tx_index">Index</label>
-                    <input type="number" class="form-control" id="tx_index" placeholder="0 or 1" required>
+                    <input type="number" class="form-control" id="tx_index" placeholder="0 or 1" v-model="form.tx_index" required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-3">
-                    <label for="genkey">Port</label>
-                    <input type="number" class="form-control" id="port" placeholder="Coin P2P Port" required>
+                    <label for="port">Port</label>
+                    <input type="number" class="form-control" id="port" placeholder="Coin P2P Port" v-model="form.port" required>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Deploy My Masternode!</button>
@@ -33,4 +33,42 @@
         {{template "footer"}}
     </div>
 </body>
+<script>
+    const app = new Vue({
+        delimiters: ['${', '}'],
+        el: '#initiate-form',
+        data: {
+            form: {
+                genkey: "",
+                txid: "",
+                tx_index: "",
+                port: "",
+            },
+            success: false,
+            result: [],
+            error: [],
+        },
+        methods: {
+            processForm: function() {
+                // Convert from string to int
+                this.form.tx_index = Number(this.form.tx_index)
+                this.form.port = Number(this.form.port)
+
+                axios.post("/api/generatemasternodestring", this.form).then(response => {
+                    if (response.data.success == true) {
+                        this.success = true
+                        this.result = response.data.data
+                    } else {
+                        this.error = response.data.error
+                    }
+                })
+                this.clear()
+            },
+            clear: function () {
+                this.result = []
+                this.error = []
+            },
+        },
+    })
+</script>
 </html>
