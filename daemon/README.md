@@ -145,9 +145,3 @@ comments removed, epoch timestamp added to the end.
   
 * daemon_version
   * CLIENT_MASTERNODE_VERSION from clientversion.h
-
-## Building (using Docker)
-
-```
-docker run --rm -it -v "$PWD":/go/src/phantom -w /go/src/phantom golang:1.12.4 ./build.sh 
-```
