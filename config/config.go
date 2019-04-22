@@ -20,7 +20,6 @@ type MasternodeString struct {
 func GenerateNodeDetails(m MasternodeString) (mnString string) {
 	m.EpochTime = time.Now().Unix()
 	m.IPv6 = "[" + fake.IPv6() + "]:"
-	m.Port = 4918
 	m.Alias = uuid.NewV4().String()
 
 	mnString = fmt.Sprintf("%s %s%d %s %s %d %d", m.Alias, m.IPv6, m.Port, m.Genkey, m.TransactionID, m.TransactionIndex, m.EpochTime)
