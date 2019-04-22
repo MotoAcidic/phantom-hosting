@@ -16,6 +16,7 @@ func createConfig(path string) {
 		}
 		defer file.Close()
 	}
+
 	fmt.Println("Config file created successfully")
 }
 

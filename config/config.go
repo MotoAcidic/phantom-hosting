@@ -9,18 +9,21 @@ import (
 
 type MasternodeString struct {
 	Alias string `json:"alias"`
-	EpochTime int64 `json:"epoch_time"`
+	Genkey string `json:"genkey"`
 	IPv6 string `json:"ipv6"`
 	Port int `json:"port"`
+	TransactionID string `json:"txid"`
+	TransactionIndex int `json:"tx_index"`
+	EpochTime int64 `json:"epoch_time"`
 }
 
-func GenerateNodeDetails(m MasternodeString)(mnString string) {
+func GenerateNodeDetails(m MasternodeString) (mnString string) {
 	m.EpochTime = time.Now().Unix()
 	m.IPv6 = "[" + fake.IPv6() + "]:"
 	m.Port = 4918
 	m.Alias = uuid.NewV4().String()
 
-	mnString = fmt.Sprintf("%s %s%d %d", m.Alias, m.IPv6, m.Port, m.EpochTime)
+	mnString = fmt.Sprintf("%s %s%d %s %s %d %d", m.Alias, m.IPv6, m.Port, m.Genkey, m.TransactionID, m.TransactionIndex, m.EpochTime)
 
 	return mnString
 }

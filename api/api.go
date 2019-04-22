@@ -1,6 +1,7 @@
 package api
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/gorilla/mux"
 	"gitlab.com/jackkdev/phantom-hosting-api/config"
@@ -11,13 +12,28 @@ import (
 
 func Start() {
 	r := mux.NewRouter()
-	r.HandleFunc("/generateconfig", GenerateConfig).Methods("GET")
+	r.HandleFunc("/generateconfig", GenerateConfig).Methods("POST")
 
 	fmt.Println("Running on http://localhost:8000")
 	log.Fatal(http.ListenAndServe(":8000", r))
 }
 
 func GenerateConfig(w http.ResponseWriter, r *http.Request) {
-	configString := config.GenerateNodeDetails(config.MasternodeString{})
-	utils.Respond(w, configString, nil)
+	var mnConfig config.MasternodeString
+
+	err := json.NewDecoder(r.Body).Decode(&mnConfig)
+
+	if err != nil {
+		log.Println(err.Error())
+	}
+
+	if mnConfig.TransactionID == "" {
+		fmt.Println("A TxID is needed")
+		utils.Respond(w, nil, err)
+		return
+	}
+
+	mnString := config.GenerateNodeDetails(mnConfig)
+
+	utils.Respond(w, mnString, nil)
 }
