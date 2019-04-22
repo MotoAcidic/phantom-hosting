@@ -27,7 +27,7 @@
 *    it in the license file.
 */
 
-package main
+package daemon
 
 import (
 	"errors"
