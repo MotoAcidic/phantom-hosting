@@ -6,6 +6,7 @@ import (
 	uuid "github.com/satori/go.uuid"
 	"os"
 	"time"
+	"errors"
 )
 
 type MasternodeString struct {
@@ -18,14 +19,27 @@ type MasternodeString struct {
 	EpochTime int64 `json:"epoch_time"`
 }
 
-func GenerateNodeDetails(m MasternodeString) (mnString string) {
+func GenerateNodeDetails(m MasternodeString) (mnString string, err error) {
 	m.EpochTime = time.Now().Unix()
 	m.IPv6 = "[" + fake.IPv6() + "]:"
 	m.Alias = uuid.NewV4().String()
 
+	if m.TransactionID == "" {
+		return "", errors.New("Transaction ID is required")
+	}
+	if m.TransactionIndex == 0 {
+		return "", errors.New("Transaction Index is required")
+	}
+	if m.Port == 0 {
+		return "", errors.New("Port is required")
+	}
+	if m.Genkey == "" {
+		return "", errors.New("Masternode Genkey is required")
+	}
+
 	mnString = fmt.Sprintf("%s %s%d %s %s %d %d", m.Alias, m.IPv6, m.Port, m.Genkey, m.TransactionID, m.TransactionIndex, m.EpochTime)
 
-	return mnString
+	return mnString, nil
 }
 
 func GenerateConfigurationFile(path string) {

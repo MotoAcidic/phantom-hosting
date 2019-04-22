@@ -40,7 +40,11 @@ func GenerateMasternodeString(w http.ResponseWriter, r *http.Request) {
 		log.Println(err.Error())
 	}
 
-	mnString = config.GenerateNodeDetails(mnConfig)
+	mnString, err = config.GenerateNodeDetails(mnConfig)
+	if err != nil {
+		utils.Respond(w, nil, err)
+		return
+	}
 
 	utils.Respond(w, mnString, nil)
 }
