@@ -40,3 +40,6 @@ POST http://localhost:8000/generatemasternodenstring
 POST http://localhost:8000/generateconfigfile
 ```
 The **masternode.txt** will be generated/stored in the project directory.
+
+## Credits
+* BreakCrypto - [Phantom Node Daemon](https://github.com/breakcrypto/phantom)
