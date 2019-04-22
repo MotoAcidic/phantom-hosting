@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+{{template "head"}}
+<body>
+{{template "menu"}}
+    <div class="container">
+        <form>
+            <h1>Masternode Deployment</h1>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="genkey">Masternode Genkey</label>
+                    <input type="text" class="form-control" id="genkey" placeholder="Genkey" required>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-md-6">
+                    <label for="txid">Collateral Transaction ID</label>
+                    <input type="text" class="form-control" id="txid" placeholder="Transaction ID" required>
+                </div>
+                <div class="col-md-2">
+                    <label for="tx_index">Index</label>
+                    <input type="number" class="form-control" id="tx_index" placeholder="0 or 1" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="genkey">Port</label>
+                    <input type="number" class="form-control" id="port" placeholder="Coin P2P Port" required>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Deploy My Masternode!</button>
+        </form>
+        {{template "footer"}}
+    </div>
+</body>
+</html>

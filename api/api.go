@@ -21,6 +21,7 @@ func init() {
 func Start() {
 	r := mux.NewRouter()
 	r.HandleFunc("/", HomeHandler).Methods("GET")
+	r.HandleFunc("/deploy", DeployMasternodeHandler).Methods("GET")
 
 	api := r.PathPrefix("/api").Subrouter()
 	api.HandleFunc("/generateconfigfile", GenerateConfigFile).Methods("POST")
@@ -37,6 +38,13 @@ func Start() {
 // Frontend Handlers
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	err := tpl.ExecuteTemplate(w, "index.gohtml", nil)
+	if err != nil {
+		fmt.Println("error template")
+	}
+}
+
+func DeployMasternodeHandler(w http.ResponseWriter, r *http.Request) {
+	err := tpl.ExecuteTemplate(w, "deploy.gohtml", nil)
 	if err != nil {
 		fmt.Println("error template")
 	}
