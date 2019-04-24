@@ -42,24 +42,28 @@ func GenerateNodeDetails(m MasternodeString) (mnString string, err error) {
 	return mnString, nil
 }
 
-func GenerateConfigurationFile(path string) {
+func GenerateConfigurationFile(path string) (err error) {
 	file, err := os.Create(path)
 	if err != nil {
-		fmt.Println(err)
+		return err
 	}
 
 	defer file.Close()
+
+	return nil
 }
 
-func AddMasternodeToConfigFile(path string, strMasternode string) {
+func AddMasternodeToConfigFile(path string, strMasternode string) (err error) {
 	file, err := os.OpenFile(path, os.O_APPEND | os.O_WRONLY, 0600)
 	if err != nil {
-		fmt.Println(err)
+		return err
 	}
 
 	defer file.Close()
 
 	if _, err := file.Write([]byte(strMasternode + "\n")); err != nil {
-		fmt.Println(err)
+		return err
 	}
+
+	return nil
 }

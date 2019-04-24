@@ -1,6 +1,7 @@
 # Phantom Hosting
 
 [![The MIT License](https://img.shields.io/badge/license-MIT-orange.svg?style=flat-square)](http://opensource.org/licenses/MIT)
+[![Travis](https://img.shields.io/travis/jackkdev/phantom-hosting.svg?style=flat-square)](https://travis-ci.org/jackkdev/phantom-hosting)
 [![Go Report Card](https://goreportcard.com/badge/github.com/jackkdev/phantom-hosting?style=flat-square)](https://goreportcard.com/report/github.com/jackkdev/phantom-hosting)
 
 The all in one self hosted Phantom Masternode solution.

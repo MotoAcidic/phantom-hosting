@@ -1,0 +1,9 @@
+language: go
+sudo: false
+go:
+  - "1.x"
+script:
+  - go get -t -v ./...
+  - diff -u <(echo -n) <(gofmt -d -s .)
+  - go vet ./...
+  - go test -v -race ./...
