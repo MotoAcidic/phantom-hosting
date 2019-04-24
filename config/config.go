@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/icrowley/fake"
-	uuid "github.com/satori/go.uuid"
+	"github.com/satori/go.uuid"
 	"os"
 	"time"
 )
@@ -22,7 +22,7 @@ type MasternodeString struct {
 func GenerateNodeDetails(m MasternodeString) (mnString string, err error) {
 	m.EpochTime = time.Now().Unix()
 	m.IPv4 = fake.IPv4()
-	m.Alias = uuid.NewV4()
+	m.Alias = uuid.Must(uuid.NewV4(), err)
 
 	if m.TransactionID == "" {
 		return "", errors.New("Transaction ID is required")
