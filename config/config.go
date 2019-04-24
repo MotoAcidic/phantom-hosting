@@ -1,22 +1,22 @@
 package config
 
 import (
+	"errors"
 	"fmt"
 	"github.com/icrowley/fake"
 	uuid "github.com/satori/go.uuid"
 	"os"
 	"time"
-	"errors"
 )
 
 type MasternodeString struct {
-	Alias string `json:"alias"`
-	Genkey string `json:"genkey"`
-	IPv4 string `json:"ipv6"`
-	Port int `json:"port"`
-	TransactionID string `json:"txid"`
-	TransactionIndex int `json:"tx_index"`
-	EpochTime int64 `json:"epoch_time"`
+	Alias            string `json:"alias"`
+	Genkey           string `json:"genkey"`
+	IPv4             string `json:"ipv6"`
+	Port             int    `json:"port"`
+	TransactionID    string `json:"txid"`
+	TransactionIndex int    `json:"tx_index"`
+	EpochTime        int64  `json:"epoch_time"`
 }
 
 func GenerateNodeDetails(m MasternodeString) (mnString string, err error) {
@@ -27,7 +27,7 @@ func GenerateNodeDetails(m MasternodeString) (mnString string, err error) {
 	if m.TransactionID == "" {
 		return "", errors.New("Transaction ID is required")
 	}
-	if m.TransactionIndex < 0 || m.TransactionIndex > 9  {
+	if m.TransactionIndex < 0 || m.TransactionIndex > 9 {
 		return "", errors.New("Transaction Index is out of range")
 	}
 	if m.Port == 0 {
@@ -54,7 +54,7 @@ func GenerateConfigurationFile(path string) (err error) {
 }
 
 func AddMasternodeToConfigFile(path string, strMasternode string) (err error) {
-	file, err := os.OpenFile(path, os.O_APPEND | os.O_WRONLY, 0600)
+	file, err := os.OpenFile(path, os.O_APPEND|os.O_WRONLY, 0600)
 	if err != nil {
 		return err
 	}

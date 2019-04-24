@@ -6,9 +6,9 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/jackkdev/phantom-hosting/config"
 	"github.com/jackkdev/phantom-hosting/utils"
+	"html/template"
 	"log"
 	"net/http"
-	"html/template"
 )
 
 var mnString string

@@ -7,13 +7,13 @@ import (
 
 func TestAddMasternodeToConfigFile(t *testing.T) {
 	masternode := struct {
-		Alias string
-		Genkey string
-		IPv4 string
-		Port int
-		TransactionID string
+		Alias            string
+		Genkey           string
+		IPv4             string
+		Port             int
+		TransactionID    string
 		TransactionIndex int
-		EpochTime int64
+		EpochTime        int64
 	}{
 		"331720b1-6d69-404c-b84e-932642c93e92",
 		"75eqvNfaEfkd3YTwQ3hMwyxL2BgNSrqHDgWc6jbUh4Gdtnro2Wo",
