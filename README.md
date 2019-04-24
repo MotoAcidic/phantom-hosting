@@ -1,13 +1,13 @@
 # Masternode Hosting Solution
 
 [![The MIT License](https://img.shields.io/badge/license-MIT-orange.svg?style=flat-square)](http://opensource.org/licenses/MIT)
-[![Go Report Card](https://goreportcard.com/badge/gitlab.com/jackkdev/phantom-hosting-api?style=flat-square)](https://goreportcard.com/report/gitlab.com/jackkdev/phantom-hosting-api)
+[![Go Report Card](https://goreportcard.com/badge/https://github.com/jackkdev/phantom-hosting?style=flat-square)](https://goreportcard.com/report/https://github.com/jackkdev/phantom-hosting)
 
 This is a solution which allows for "fake" masternode hosting.
 
 ## Installation and Usage
 ```
-git clone https://gitlab.com/jackkdev/phantom-hosting-api.git
+git clone https://https://github.com/jackkdev/phantom-hosting.git
 cd phantom-hosting-api
 dep ensure
 go run main.go

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"gitlab.com/jackkdev/phantom-hosting-api/api"
+	"https://github.com/jackkdev/phantom-hosting/api"
 )
 
 func main() {
