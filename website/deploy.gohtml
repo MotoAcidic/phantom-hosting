@@ -32,6 +32,7 @@
             <br>
             <br>
             <code v-show="success == true">${result}</code>
+            <pre v-show="error.length > 0" style="color: red">${error}</pre>
         </form>
         {{template "footer"}}
     </div>
@@ -63,6 +64,7 @@
                         this.result = response.data.data
                     } else {
                         this.error = response.data.error
+                        console.log(this.error)
                     }
                 })
                 this.clear()
