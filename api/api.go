@@ -52,7 +52,13 @@ func DeployMasternodeHandler(w http.ResponseWriter, r *http.Request) {
 
 // API Handlers
 func GenerateConfigFile(w http.ResponseWriter, r *http.Request) {
-	config.GenerateConfigurationFile("masternode.txt")
+	err := config.GenerateConfigurationFile("masternode.txt")
+
+	if err != nil {
+		utils.Respond(w, nil, err)
+		return
+	}
+
 	utils.Respond(w, "Configuration file created", nil)
 }
 
@@ -62,7 +68,8 @@ func GenerateMasternodeString(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(&mnConfig)
 
 	if err != nil {
-		log.Println(err.Error())
+		utils.Respond(w, nil, err)
+		return
 	}
 
 	mnString, err = config.GenerateNodeDetails(mnConfig)
@@ -75,6 +82,12 @@ func GenerateMasternodeString(w http.ResponseWriter, r *http.Request) {
 }
 
 func AddMasternode(w http.ResponseWriter, r *http.Request) {
-	config.AddMasternodeToConfigFile("masternode.txt", mnString)
+	err := config.AddMasternodeToConfigFile("masternode.txt", mnString)
+
+	if err != nil {
+		utils.Respond(w, nil, err)
+		return
+	}
+
 	utils.Respond(w, "Masternode added successfully to configuration file", nil)
 }
