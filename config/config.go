@@ -12,7 +12,7 @@ import (
 type MasternodeString struct {
 	Alias string `json:"alias"`
 	Genkey string `json:"genkey"`
-	IPv6 string `json:"ipv6"`
+	IPv4 string `json:"ipv6"`
 	Port int `json:"port"`
 	TransactionID string `json:"txid"`
 	TransactionIndex int `json:"tx_index"`
@@ -21,13 +21,16 @@ type MasternodeString struct {
 
 func GenerateNodeDetails(m MasternodeString) (mnString string, err error) {
 	m.EpochTime = time.Now().Unix()
-	m.IPv6 = "[" + fake.IPv6() + "]:"
+	m.IPv4 = fake.IPv4()
 	m.Alias = uuid.NewV4().String()
 
 	if m.TransactionID == "" {
 		return "", errors.New("Transaction ID is required")
 	}
-	if m.TransactionIndex == 0 {
+	if m.TransactionIndex > 1 {
+		return "", errors.New("Transaction Index is out of range")
+	}
+	if m.TransactionIndex != 0 && m.TransactionIndex != 1 {
 		return "", errors.New("Transaction Index is required")
 	}
 	if m.Port == 0 {
@@ -37,7 +40,7 @@ func GenerateNodeDetails(m MasternodeString) (mnString string, err error) {
 		return "", errors.New("Masternode Genkey is required")
 	}
 
-	mnString = fmt.Sprintf("%s %s%d %s %s %d %d", m.Alias, m.IPv6, m.Port, m.Genkey, m.TransactionID, m.TransactionIndex, m.EpochTime)
+	mnString = fmt.Sprintf("%s %s:%d %s %s %d %d", m.Alias, m.IPv4, m.Port, m.Genkey, m.TransactionID, m.TransactionIndex, m.EpochTime)
 
 	return mnString, nil
 }
