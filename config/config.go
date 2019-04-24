@@ -27,11 +27,8 @@ func GenerateNodeDetails(m MasternodeString) (mnString string, err error) {
 	if m.TransactionID == "" {
 		return "", errors.New("Transaction ID is required")
 	}
-	if m.TransactionIndex > 1 {
+	if m.TransactionIndex !>= 0 || m.TransactionIndex <= 9  {
 		return "", errors.New("Transaction Index is out of range")
-	}
-	if m.TransactionIndex != 0 && m.TransactionIndex != 1 {
-		return "", errors.New("Transaction Index is required")
 	}
 	if m.Port == 0 {
 		return "", errors.New("Port is required")
