@@ -8,6 +8,12 @@
   version = "v0.1.0"
 
 [[projects]]
+  name = "github.com/gofrs/uuid"
+  packages = ["."]
+  revision = "6b08a5c5172ba18946672b49749cde22873dd7c2"
+  version = "v3.2.0"
+
+[[projects]]
   name = "github.com/gorilla/mux"
   packages = ["."]
   revision = "c5c6c98bc25355028a63748a498942a6398ccd22"
@@ -19,15 +25,9 @@
   packages = ["."]
   revision = "4178557ae428460c3780a381c824a1f3aceb6325"
 
-[[projects]]
-  name = "github.com/satori/go.uuid"
-  packages = ["."]
-  revision = "f58768cc1a7a7e77a3bd49e98cdd21419399b6a3"
-  version = "v1.2.0"
-
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "d5122213438e6ebcc0afbb1b884fcac433dca32c784dc2ab8862f8827838b329"
+  inputs-digest = "5ee1b58eaee4621282b7b7045ed0051e124ba9608685e2e34994429c364ab2bc"
   solver-name = "gps-cdcl"
   solver-version = 1

@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/icrowley/fake"
-	"github.com/satori/go.uuid"
+	"github.com/gofrs/uuid"
 	"os"
 	"time"
 )
@@ -20,9 +20,11 @@ type MasternodeString struct {
 }
 
 func GenerateNodeDetails(m MasternodeString) (mnString string, err error) {
+	var alias = uuid.Must(uuid.NewV4())
+
 	m.EpochTime = time.Now().Unix()
 	m.IPv4 = fake.IPv4()
-	m.Alias = uuid.Must(uuid.NewV4(), err)
+	m.Alias = alias 
 
 	if m.TransactionID == "" {
 		return "", errors.New("Transaction ID is required")
@@ -37,7 +39,7 @@ func GenerateNodeDetails(m MasternodeString) (mnString string, err error) {
 		return "", errors.New("Masternode Genkey is required")
 	}
 
-	mnString = fmt.Sprintf("%s %s:%d %s %s %d %d", m.Alias, m.IPv4, m.Port, m.Genkey, m.TransactionID, m.TransactionIndex, m.EpochTime)
+	mnString = fmt.Sprintf("%v %s:%d %s %s %d %d", m.Alias, m.IPv4, m.Port, m.Genkey, m.TransactionID, m.TransactionIndex, m.EpochTime)
 
 	return mnString, nil
 }
