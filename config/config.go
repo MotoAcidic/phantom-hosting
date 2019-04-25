@@ -3,8 +3,8 @@ package config
 import (
 	"errors"
 	"fmt"
-	"github.com/icrowley/fake"
 	"github.com/gofrs/uuid"
+	"github.com/icrowley/fake"
 	"os"
 	"time"
 )
@@ -24,7 +24,7 @@ func GenerateNodeDetails(m MasternodeString) (mnString string, err error) {
 
 	m.EpochTime = time.Now().Unix()
 	m.IPv4 = fake.IPv4()
-	m.Alias = alias 
+	m.Alias = alias
 
 	if m.TransactionID == "" {
 		return "", errors.New("Transaction ID is required")
