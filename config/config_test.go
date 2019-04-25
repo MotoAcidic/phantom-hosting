@@ -1,11 +1,12 @@
 package config
 
 import (
+	"os"
 	"testing"
 	"time"
 )
 
-func TestAddMasternodeToConfigFile(t *testing.T) {
+func TestGenerateNodeDetails(t *testing.T) {
 	masternode := struct {
 		Alias            string
 		Genkey           string
@@ -44,5 +45,19 @@ func TestAddMasternodeToConfigFile(t *testing.T) {
 	}
 	if masternode.EpochTime != time.Now().Unix() {
 		t.Errorf("Epochtime is offset: got :%d, want: %d", masternode.EpochTime, time.Now().Unix())
+	}
+}
+
+func TestGenerateConfigurationFile(t *testing.T) {
+	_, err := os.Create("../masternode.txt")
+
+	if err != nil {
+		t.Errorf("An error occurred")
+	}
+
+	if _, err := os.Stat("../masternode.txt"); err != nil {
+		if os.IsNotExist(err) {
+			t.Errorf("Masternode.txt does not exist")
+		}
 	}
 }

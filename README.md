@@ -6,12 +6,22 @@
 
 The all in one self hosted Phantom Masternode solution.
 
+![Landing Page](./screenshots/landing.png)
+
+![Deploy Page](./screenshots/deploy.png)
+
 ## Installation and Usage
 ```
 git clone https://github.com/jackkdev/phantom-hosting.git
 cd phantom-hosting
 dep ensure
 go run main.go
+```
+
+## User Intergace
+The user interface for the Phantom hosting solution is being served on:
+```
+http://localhost:8000
 ```
 
 ## Making requests
