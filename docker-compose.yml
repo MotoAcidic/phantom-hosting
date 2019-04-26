@@ -1,0 +1,7 @@
+version: '2'
+services:
+  phantom-hosting:
+    image: phantom-hosting
+    build: .
+    ports:
+      - 8000:8000

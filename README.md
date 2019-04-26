@@ -18,7 +18,20 @@ dep ensure
 go run main.go
 ```
 
-## User Intergace
+## Docker
+Run the Phantom Hosting solution under a Docker container
+```
+docker build -t phantom-hosting .
+docker run -d -p 8000:8000 phantom-hosting
+
+```
+
+#### Docker Compose
+```
+docker-compose up -d
+```
+
+## User Interface
 The user interface for the Phantom hosting solution is being served on:
 ```
 http://localhost:8000
