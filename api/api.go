@@ -22,11 +22,15 @@ func Start() {
 	r := mux.NewRouter()
 	r.HandleFunc("/", HomeHandler).Methods("GET")
 	r.HandleFunc("/deploy", DeployMasternodeHandler).Methods("GET")
+	r.HandleFunc("/configuration", ViewConfigurationHandler).Methods("GET")
 
 	api := r.PathPrefix("/api").Subrouter()
 	api.HandleFunc("/generateconfigfile", GenerateConfigFile).Methods("POST")
 	api.HandleFunc("/generatemasternodestring", GenerateMasternodeString).Methods("POST")
 	api.HandleFunc("/addmasternode", AddMasternode).Methods("POST")
+
+	api.HandleFunc("/viewconfiguration", ViewConfigFile).Methods("GET")
+
 	http.Handle("/", r)
 
 	r.PathPrefix("/www/").Handler(http.StripPrefix("/www/", http.FileServer(http.Dir("www"))))
@@ -45,6 +49,13 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 
 func DeployMasternodeHandler(w http.ResponseWriter, r *http.Request) {
 	err := tpl.ExecuteTemplate(w, "deploy.gohtml", nil)
+	if err != nil {
+		fmt.Println("error template")
+	}
+}
+
+func ViewConfigurationHandler(w http.ResponseWriter, r *http.Request) {
+	err := tpl.ExecuteTemplate(w, "configuration.gohtml", nil)
 	if err != nil {
 		fmt.Println("error template")
 	}
@@ -90,4 +101,15 @@ func AddMasternode(w http.ResponseWriter, r *http.Request) {
 	}
 
 	utils.Respond(w, "Masternode added successfully to configuration file", nil)
+}
+
+func ViewConfigFile(w http.ResponseWriter, r *http.Request) {
+	data, err := config.ViewConfiguration("masternode.txt")
+
+	if err != nil {
+		utils.Respond(w, nil, err)
+		return
+	}
+
+	utils.Respond(w, data, nil)
 }

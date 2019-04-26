@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/gofrs/uuid"
 	"github.com/icrowley/fake"
+	"io/ioutil"
 	"os"
 	"time"
 )
@@ -53,6 +54,18 @@ func GenerateConfigurationFile(path string) (err error) {
 	defer file.Close()
 
 	return nil
+}
+
+func ViewConfiguration(path string) (config string, err error) {
+	data, err := ioutil.ReadFile(path)
+
+	if err != nil {
+		return "", err
+	}
+
+	dataString := string(data)
+
+	return dataString, nil
 }
 
 func AddMasternodeToConfigFile(path string, strMasternode string) (err error) {

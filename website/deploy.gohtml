@@ -5,7 +5,7 @@
 {{template "menu"}}
     <div id="app" class="container">
         <form @submit.prevent="processForm" id="initiate-form">
-            <h1>Masternode Deployment</h1>
+            <h1>Masternode Configuration Generation</h1>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="genkey">Masternode Genkey</label>
@@ -28,7 +28,7 @@
                     <input type="number" class="form-control" id="port" placeholder="Coin P2P Port" v-model="form.port" required>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Deploy My Masternode!</button>
+            <button type="submit" class="btn btn-primary">Create Configuration String!</button>
             <br>
             <br>
             <code v-show="success == true">${result}</code>
