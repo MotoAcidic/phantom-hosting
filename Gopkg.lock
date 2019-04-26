@@ -2,6 +2,12 @@
 
 
 [[projects]]
+  name = "github.com/asdine/storm"
+  packages = [".","codec","codec/json","index","internal","q"]
+  revision = "e0f77eada154c7c2670527a8566d3c045880224f"
+  version = "v2.2.1"
+
+[[projects]]
   name = "github.com/corpix/uarand"
   packages = ["."]
   revision = "2a908321ca23daeedd8f441276809b3daaa280d7"
@@ -25,9 +31,27 @@
   packages = ["."]
   revision = "4178557ae428460c3780a381c824a1f3aceb6325"
 
+[[projects]]
+  name = "go.etcd.io/bbolt"
+  packages = ["."]
+  revision = "63597a96ec0ad9e6d43c3fc81e809909e0237461"
+  version = "v1.3.2"
+
+[[projects]]
+  branch = "master"
+  name = "golang.org/x/crypto"
+  packages = ["bcrypt","blowfish"]
+  revision = "a29dc8fdc73485234dbef99ebedb95d2eced08de"
+
+[[projects]]
+  branch = "master"
+  name = "golang.org/x/sys"
+  packages = ["unix"]
+  revision = "a129542de9ae0895210abff9c95d67a1f33cb93d"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "5ee1b58eaee4621282b7b7045ed0051e124ba9608685e2e34994429c364ab2bc"
+  inputs-digest = "07c5e0b811feca30985ad018decae1c290af6a40f4cfa4e49bca66323bae7557"
   solver-name = "gps-cdcl"
   solver-version = 1

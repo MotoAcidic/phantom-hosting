@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/mux"
+	"github.com/jackkdev/phantom-hosting/auth"
 	"github.com/jackkdev/phantom-hosting/config"
 	"github.com/jackkdev/phantom-hosting/utils"
 	"html/template"
@@ -28,6 +29,8 @@ func Start() {
 	api.HandleFunc("/generateconfigfile", GenerateConfigFile).Methods("POST")
 	api.HandleFunc("/generatemasternodestring", GenerateMasternodeString).Methods("POST")
 	api.HandleFunc("/addmasternode", AddMasternode).Methods("POST")
+
+	api.HandleFunc("/register", auth.Register).Methods("POST")
 
 	api.HandleFunc("/viewconfiguration", ViewConfigFile).Methods("GET")
 
