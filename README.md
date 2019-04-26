@@ -1,6 +1,6 @@
 # Phantom Hosting
 
-[![The MIT License](https://img.shields.io/badge/license-MIT-orange.svg?style=flat-square)](http://opensource.org/licenses/MIT)
+[![The SSPL License](https://img.shields.io/badge/license-SSPL-orange.svg?style=flat-square)](https://www.mongodb.com/licensing/server-side-public-license)
 [![Travis](https://img.shields.io/travis/jackkdev/phantom-hosting.svg?style=flat-square)](https://travis-ci.org/jackkdev/phantom-hosting)
 [![Go Report Card](https://goreportcard.com/badge/github.com/jackkdev/phantom-hosting?style=flat-square)](https://goreportcard.com/report/github.com/jackkdev/phantom-hosting)
 
@@ -16,6 +16,11 @@ git clone https://github.com/jackkdev/phantom-hosting.git
 cd phantom-hosting
 dep ensure
 go run main.go
+```
+
+## Standalone Build
+```
+./build.sh
 ```
 
 ## Docker
