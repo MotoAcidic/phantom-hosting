@@ -31,6 +31,7 @@ func Start() {
 	api.HandleFunc("/addmasternode", AddMasternode).Methods("POST")
 
 	api.HandleFunc("/register", auth.Register).Methods("POST")
+	api.HandleFunc("/login", auth.Login).Methods("POST")
 
 	api.HandleFunc("/viewconfiguration", ViewConfigFile).Methods("GET")
 

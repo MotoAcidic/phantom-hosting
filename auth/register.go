@@ -3,16 +3,24 @@ package auth
 import (
 	"encoding/json"
 	"errors"
-	"github.com/asdine/storm"
+	"fmt"
+	"github.com/boltdb/bolt"
 	"github.com/jackkdev/phantom-hosting/utils"
 	"golang.org/x/crypto/bcrypt"
 	"net/http"
 )
 
+var db bolt.DB
+
 func Register(w http.ResponseWriter, r *http.Request) {
 	var account Account
 
-	db, err := storm.Open("my.db")
+	// Create db
+	db, err := bolt.Open("my.db", 0600, nil)
+	if err != nil {
+		fmt.Println(err)
+	}
+
 	defer db.Close()
 
 	err = json.NewDecoder(r.Body).Decode(&account)
@@ -30,11 +38,22 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(account.Password), bcrypt.DefaultCost)
 	account.Password = string(hashedPassword)
 
-	account.ID = 1
+	err = db.Update(func(tx *bolt.Tx) error {
+		b, err := tx.CreateBucketIfNotExists([]byte("usersBucket"))
+		if err != nil {
+			return err
+		}
 
-	err = db.Save(&account)
+		encoded, err := json.Marshal(account)
+		if err != nil {
+			return err
+		}
+
+		return b.Put([]byte(account.Username), encoded)
+	})
+
 	if err != nil {
-		utils.Respond(w, nil, err)
+		fmt.Println(err)
 		return
 	}
 

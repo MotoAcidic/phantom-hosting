@@ -1,7 +1,6 @@
 package auth
 
 type Account struct {
-	ID       int
-	Username string `json:"username",storm:"username"`
-	Password string `json:"password",storm:"password"`
+	Username string `json:"username"`
+	Password string `json:"password"`
 }
