@@ -24,6 +24,7 @@ func Start() {
 	r.HandleFunc("/", HomeHandler).Methods("GET")
 	r.HandleFunc("/deploy", DeployMasternodeHandler).Methods("GET")
 	r.HandleFunc("/configuration", ViewConfigurationHandler).Methods("GET")
+	r.HandleFunc("/faq", ViewFAQHandler).Methods("GET")
 
 	api := r.PathPrefix("/api").Subrouter()
 	api.HandleFunc("/generateconfigfile", GenerateConfigFile).Methods("POST")
@@ -65,9 +66,17 @@ func ViewConfigurationHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func ViewFAQHandler(w http.ResponseWriter, r *http.Request) {
+	err := tpl.ExecuteTemplate(w, "faq.gohtml", nil)
+	if err != nil {
+		fmt.Println("error template")
+	}
+}
+
+
 // API Handlers
 func GenerateConfigFile(w http.ResponseWriter, r *http.Request) {
-	err := config.GenerateConfigurationFile("masternode.txt")
+	err := config.GenerateConfigurationFile("masternode.conf")
 
 	if err != nil {
 		utils.Respond(w, nil, err)
@@ -93,11 +102,13 @@ func GenerateMasternodeString(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	utils.Respond(w, mnString, nil)
+	config.AddMasternodeToConfigFile("masternode.conf", mnString)
+
+	utils.Respond(w, "Check your configuration file!", nil)
 }
 
 func AddMasternode(w http.ResponseWriter, r *http.Request) {
-	err := config.AddMasternodeToConfigFile("masternode.txt", mnString)
+	err := config.AddMasternodeToConfigFile("masternode.conf", mnString)
 
 	if err != nil {
 		utils.Respond(w, nil, err)
@@ -108,7 +119,7 @@ func AddMasternode(w http.ResponseWriter, r *http.Request) {
 }
 
 func ViewConfigFile(w http.ResponseWriter, r *http.Request) {
-	data, err := config.ViewConfiguration("masternode.txt")
+	data, err := config.ViewConfiguration("masternode.conf")
 
 	if err != nil {
 		utils.Respond(w, nil, err)
