@@ -10,7 +10,13 @@ The all in one self hosted Phantom Masternode solution.
 
 ![Deploy Page](./screenshots/deploy.png)
 
-## Installation and Usage
+## Installation (Production)
+1. Download the latest release from [GitHub](https://github.com/jackkdev/phantom-hosting/releases/latest) for your platform.
+2. Place the executable in the same directory as your Phantom daemon.
+3. Execute the application and visit [http://127.0.0.1:8000](http://127.0.0.1:8000).
+4. Have fun!
+
+## Installation and Usage (Development)
 ```
 git clone https://github.com/jackkdev/phantom-hosting.git
 cd phantom-hosting
