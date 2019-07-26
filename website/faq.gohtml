@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+{{template "head"}}
+<body>
+{{template "menu"}}
+<div id="app" class="container">
+    <h1>Frequently Asked Questions</h1>
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">1. What is Phantom?</h5>
+            <p class="card-text">The phantom daemon is custom built wallet designed to replicate only what is required for pre-EVO masternodes to run; it replaces the masternode daemon piece. It does not handle any wallet private keys and has no access to your coins. You will still need a wallet to start your masternodes, but once started, the Phantom node system will handle the rest for you.</p>
+        </div>
+    </div>
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">2. How do I add a node?</h5>
+            <p class="card-text">
+                Visit the deploy masternode page, and enter in the details for your primary coin of choice. This is the same process you would find typically creating a masternode. It is handy to have all this information to hand!
+                <br>
+                <br>
+                Once the relevant information has been filled in, hit the "Deploy" button, and your configuration string will automatically be saved to the masternode config file. The Phantom daemon will detect the new configuration string, and you can then start your masternode from your wallet.
+                <br>
+                <br>
+                <a class="btn btn-primary" href="/deploy">Deploy Masternode</a>
+            </p>
+        </div>
+    </div>
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">3. Are multiple coins supported?</h5>
+            <p class="card-text">
+                Unfortunately, not yet! The daemon hasn't been modified to support multiple cryptocurrencies at once. In future though, the hosting solution will allow you to change the port it runs on, so you can spin up an instance for each Phantom daemon you have running. Unless someone figures out that bit already ;)
+            </p>
+        </div>
+    </div>
+    {{template "footer"}}
+</div>
+</body>

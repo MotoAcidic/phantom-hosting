@@ -49,15 +49,15 @@ func TestGenerateNodeDetails(t *testing.T) {
 }
 
 func TestGenerateConfigurationFile(t *testing.T) {
-	_, err := os.Create("../masternode.txt")
+	_, err := os.Create("../masternode.conf")
 
 	if err != nil {
 		t.Errorf("An error occurred")
 	}
 
-	if _, err := os.Stat("../masternode.txt"); err != nil {
+	if _, err := os.Stat("../masternode.conf"); err != nil {
 		if os.IsNotExist(err) {
-			t.Errorf("Masternode.txt does not exist")
+			t.Errorf("masternode.conf does not exist")
 		}
 	}
 }
